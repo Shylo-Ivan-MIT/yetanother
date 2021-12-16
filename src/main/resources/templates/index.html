@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    table {
+        width: 95%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<body>
+<div th:if="error">
+    <h1 th:text="${error}" style="color: red"></h1>
+</div>
+<table>
+    <tr>
+        <td colspan="4"> Items</td>
+    </tr>
+    <tr>
+        <td>name</td><td>price</td><td>date</td><td>delete</td>
+    </tr>
+    <tr th:each="item : ${items}">
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.itemPrice}"></td>
+        <td th:text="${item.dateOfDelivery}"></td>
+        <td>
+            <form th:action="@{/delete}" method="post">
+                <input type="hidden" name="name" th:value="${item.name}">
+                <input type="submit" value="delete">
+            </form>
+        </td>
+    </tr>
+</table>
+<hr>
+<div>
+    <form th:action="@{/add}" method="post">
+        <input type="text" name="name" placeholder="name(string)">
+        <input type="text" name="price" placeholder="price(integer)">
+        <input type="text" name="date" placeholder="2001 12 13">
+        <input type="submit" value="add">
+    </form>
+</div>
+<hr>
+<!--
+<div>
+    <form th:action="@{/is}" method="post">
+        <input type="text" name="name" placeholder="name(string)">
+        <input type="text" name="date" placeholder="16-Aug-2016">
+        <input type="submit" value="isDeliveryDay">
+    </form>
+</div>
+-->
+</body>
+</html>
